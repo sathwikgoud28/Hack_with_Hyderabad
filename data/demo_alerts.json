@@ -1,0 +1,23 @@
+[
+  {
+    "label": "Payment API slow (seen before)",
+    "service": "payments-api",
+    "problem": "Payment API is slow and returning 502 errors",
+    "error": "Database connection timeout: HikariPool-1 - Connection is not available, request timed out after 30000ms",
+    "details": "Release v4.18.0 was deployed 12 minutes ago. 5xx rate is 28%."
+  },
+  {
+    "label": "Orders stuck (seen before)",
+    "service": "orders-service",
+    "problem": "Order confirmations are not being sent",
+    "error": "MismatchedInputException: Cannot deserialize value of type Long",
+    "details": "Kafka consumer group 'orders-confirmation' lag is 65,000 on orders.created partition 11. The consumer keeps restarting."
+  },
+  {
+    "label": "Payment gateway timeout (new problem)",
+    "service": "payment-gateway",
+    "problem": "Card payments failing at checkout",
+    "error": "PAYMENT_GATEWAY_TIMEOUT after 5000ms",
+    "details": "Gateway latency is 8.7 seconds. No deploy on our side today. The payment provider announced API changes last week."
+  }
+]

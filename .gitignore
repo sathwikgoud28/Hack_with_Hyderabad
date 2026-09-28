@@ -1,0 +1,54 @@
+# ---------------------------------------------------------------
+# Secrets - never commit real keys. Copy .env.example to .env.
+# ---------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ---------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Test / tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ---------------------------------------------------------------
+# Node (not used by the app today; kept out just in case)
+# ---------------------------------------------------------------
+node_modules/
+
+# ---------------------------------------------------------------
+# Runtime data written by the app on each machine
+# ---------------------------------------------------------------
+data/local_memory.json
+data/incidents_log.json
+
+# Logs
+*.log
+
+# ---------------------------------------------------------------
+# Editors / OS
+# ---------------------------------------------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DejaFix</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%230e1116' stroke='%23b48cff' stroke-width='2'/%3E%3Ctext x='16' y='22' font-size='18' text-anchor='middle' fill='%23b48cff'%3E%E2%86%BA%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">↺</span>
+      <div>
+        <h1>DejaFix <span class="powered">Powered by Hindsight</span></h1>
+        <p>Incident response that remembers every outage</p>
+      </div>
+    </div>
+    <div class="status" id="status"><span class="muted">Connecting to Hindsight…</span></div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="new">🚨 New incident</button>
+    <button class="tab" data-tab="active">Active incidents <span class="count" id="active-count"></span></button>
+    <button class="tab" data-tab="past">Past incidents</button>
+    <button class="tab" data-tab="insights">🧠 Memory insights</button>
+  </nav>
+
+  <main>
+    <!-- New incident: form + investigation -->
+    <section class="view active split" id="view-new">
+      <form class="panel" id="incident-form" autocomplete="off">
+        <h2>What's broken?</h2>
+        <label>Service
+          <input id="f-service" list="services" placeholder="payments-api">
+          <datalist id="services"></datalist>
+        </label>
+        <label>Problem <input id="f-problem" placeholder="Payment API is slow"></label>
+        <label>Error <textarea id="f-error" rows="2" placeholder="Database connection timeout"></textarea></label>
+        <label>Logs / recent changes <span class="opt">(optional)</span>
+          <textarea id="f-details" rows="3" placeholder="e.g. Release v4.18.0 was deployed 10 minutes ago"></textarea>
+        </label>
+        <button class="primary big" id="btn-investigate" type="submit">🔍 Investigate</button>
+        <p class="error" id="form-error"></p>
+        <div class="examples"><span class="muted">Try an example:</span><div id="examples"></div></div>
+      </form>
+
+      <div id="incident-view">
+        <div class="stack">
+          <div class="panel why-hindsight">
+            <h3>Why Hindsight?</h3>
+            <div class="compare-memory">
+              <div class="cm-box without">
+                <span class="cm-label">Without memory</span>
+                <b>Generic troubleshooting</b>
+                <span>The agent investigates only from the current error, like a new engineer on their first day.</span>
+              </div>
+              <div class="cm-arrow">→</div>
+              <div class="cm-box with">
+                <span class="cm-label">With Hindsight</span>
+                <b>Your organisation's incident knowledge</b>
+                <span>The agent recalls previous incidents, fixes that worked, fixes that failed, outcomes and recurring patterns.</span>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Two ways DejaFix responds</h3>
+            <div class="modes">
+              <div class="mode-box known"><b>🧠 Known problem</b><span>Hindsight finds the same failure in memory → DejaFix recommends the fix that worked before and shows exactly which memory it used.</span></div>
+              <div class="mode-box fresh"><b>🆕 New problem</b><span>No relevant memory → DejaFix investigates from the current data, labels its root cause as a hypothesis, and learns once you confirm the fix.</span></div>
+            </div>
+            <p class="muted">Enter the incident on the left and press <b>Investigate</b>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-active">
+      <div id="active-list" class="empty">Loading…</div>
+    </section>
+
+    <section class="view" id="view-past">
+      <div id="past-list" class="empty">Loading…</div>
+    </section>
+
+    <section class="view" id="view-insights">
+      <div class="stack">
+        <div class="stat-cards" id="insight-cards"></div>
+        <div id="progression"></div>
+        <div class="insight-grid" id="insight-sections"></div>
+        <div class="panel">
+          <div class="head">
+            <div>
+              <h2>🧠 Hindsight reflect</h2>
+              <p class="muted">Hindsight reasons over every incident and failed fix in memory and writes an analysis.</p>
+            </div>
+            <button class="primary" id="btn-insights">Run Hindsight reflect</button>
+          </div>
+          <div id="insights-result"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
